@@ -19,9 +19,9 @@ Citation information (journal link) -- coming soon
 -----------------------------------------------------------------------------------------------------------------------
 ### Code structure
 
-├── data
-├── inference.ipynb
-├── LICENSE
-├── README.md
+├── data <BR>
+├── inference.ipynb <BR>
+├── LICENSE <BR>
+├── README.md <BR>
 └── src
 
