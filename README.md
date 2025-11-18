@@ -19,9 +19,11 @@ Citation information (journal link) -- coming soon
 -----------------------------------------------------------------------------------------------------------------------
 ### Code structure
 
-├── data <BR>
-├── inference.ipynb <BR>
-├── LICENSE <BR>
-├── README.md <BR>
-└── src
+├── data<BR>
+├── inference.ipynb<BR>
+├── models<BR>
+│   └── ECG2DIG.py<BR>
+├── LICENSE<BR>
+├── README.md<BR>
+└── src<BR>
 
