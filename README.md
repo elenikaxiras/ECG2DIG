@@ -13,7 +13,7 @@ Citation information -- coming soon
 
 -----------------------------------------------------------------------------------------------------------------------
 
-## Setting up your local environment
+### Setting up your local environment
 
 Clone the repo to your home directory:
 ```
@@ -34,21 +34,7 @@ python -m pip install -e .
 
 ![ECG2DIG_highlevel_sk.pdf](https://github.com/user-attachments/files/23604037/ECG2DIG_highlevel_sk.pdf)
 
------------------------------------------------------------------------------------------------------------------------
-### Code structure
+---------------------------------------------------------------------------------------------------------------------
 
-1. Create the Conda env first using environment.yml, activate it, then run pip install -e . from the repo root. 
-conda env create -f environment.yml
-conda activate ecg2dig-env
-
-ECG2DIG/
-├── pyproject.toml
-├── environment.yml
-├── README.md
-|-- data<BR>
-├── src/
-│   └── ecg2dig/
-└── notebooks/
-    └── inference.ipynb
 
 
