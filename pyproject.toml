@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecg2dig"
+version = "0.1.0"
+description = "Inference package for ECG2DIG"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Eleni Angelaki", email = "eleni@seas.harvard.edu" }
+]
+dependencies = [
+    "torch",
+    "numpy",
+]
+
+[project.optional-dependencies]
+notebook = [
+    "jupyter",
+    "matplotlib",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+include = '\.pyw?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3

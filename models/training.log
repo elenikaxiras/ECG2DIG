@@ -1,0 +1,301 @@
+2025-09-09 10:36:52,796 [INFO] Loading model onto cuda
+2025-09-09 10:36:52,797 [INFO] GPU memory before loading model:
+2025-09-09 10:37:01,486 [INFO] GPU memory after loading model:
+2025-09-09 10:37:01,487 [INFO] Training on a single GPU: Tesla V100-SXM2-32GB-LS.
+2025-09-09 10:37:01,487 [INFO] GPU total memory: 31.73 GB.
+2025-09-09 10:37:01,487 [INFO] use_age: False, use_sex: False, use_hr: True, use_dig: True, use_time: False
+2025-09-09 10:37:01,492 [INFO] Classification criterion: CrossEntropyLoss()
+2025-09-09 10:37:01,492 [INFO] Age criterion: MSELoss()
+2025-09-09 10:37:01,494 [INFO] Optimizer: AdamW with betas=(0.95, 0.98), lr=0.0001, and weight_decay=0.005
+2025-09-09 10:37:01,494 [INFO] Scheduler created: StepLR
+2025-09-09 10:37:01,494 [WARNING] training_steps=215.0 < steps_per_epoch=418
+2025-09-09 10:37:01,494 [INFO] Model: ECG12DrugNet
+ARGS:
+  JOB_ID: 651461
+  num_gpus: 1
+  model_name: ECG12DrugNet
+  output_dir: /PHShome/ea382/ecgGPT/runs
+  batch_size: 256
+  epochs: 30
+  learning_rate: 0.0001
+  weight_decay: 0.005
+  dropout_prob: 0.3
+  fc_dropout_prob: 0.6
+  training_steps: 215.0
+  validation_steps: 66.0
+  patience: 5.0
+  checkpoint_freq: 20
+  dry_run: False
+  use_optuna: False
+  num_optuna_batches: 50
+  num_optuna_trials: 30
+  use_scheduler: True
+  scheduler_type: step
+  scheduler_patience: 10
+  factor: 0.1
+  step_size: 10
+  t_max: 100
+  gamma: 0.95
+  use_dynamic_task_weights: False
+  use_multi_class: True
+  use_time: False
+  num_classes: 3
+  use_age: False
+  use_sex: False
+  use_hr: True
+  use_dig: True
+  dig_threshold: 0
+Run directory: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet
+Classification criterion: CrossEntropyLoss()
+Regression criterion: MSELoss()
+Digoxin level regression criterion: MSELoss()
+2025-09-09 10:37:01,494 [INFO] Training started!
+2025-09-09 10:37:01,494 [INFO] Gradient clipping set to: 1.0
+2025-09-09 10:37:01,495 [INFO] Imbalance setting: True
+2025-09-09 10:37:01,495 [INFO] [TRAIN][Epoch 1/30]
+2025-09-09 11:24:34,403 [INFO] 
+[TRAIN] Total loss: 1.2147  (cls:0.7443, hr:0.3500, dig:0.8706)
+[TRAIN] Metrics: Dig AUC: 0.7049, Macro F1: 0.4673  | class0 AUC: 0.7767 | class1 AUC: 0.7631 | class2 AUC: 0.5750, HR r: 0.8059, Dig r: 0.4146
+
+2025-09-09 11:24:34,404 [INFO] [VAL][Epoch 1/30]
+2025-09-09 11:38:54,431 [INFO] Epoch 1: New best val_loss = 1.040194
+2025-09-09 11:38:54,453 [INFO] [VAL] Metrics: Acc: 0.7401, AUC: 0.7946, Precision: nan, Recall: nan, F1: 0.4988, Sens: nan, Spec: nan
+2025-09-09 11:39:15,535 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.38 GiB already allocated; 10.44 MiB free; 30.56 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 11:39:15,547 [INFO] 
+[VAL] Total loss: 1.0402  (cls:0.6614, hr:0.1564, dig:0.7264)
+[VAL] Metrics: Dig AUC: 0.7946, Macro F1: 0.4988  | class0 AUC: 0.8415 | class1 AUC: 0.8170 | class2 AUC: 0.7254, HR r: 0.9284, Dig r: 0.5201 (p=0.00e+00)
+
+2025-09-09 11:39:15,547 [INFO] [TRAIN][Epoch 2/30]
+2025-09-09 12:00:10,999 [INFO] 
+[TRAIN] Total loss: 1.0237  (cls:0.6456, hr:0.1424, dig:0.7278)
+[TRAIN] Metrics: Dig AUC: 0.8034, Macro F1: 0.5068  | class0 AUC: 0.8536 | class1 AUC: 0.8282 | class2 AUC: 0.7282, HR r: 0.9260, Dig r: 0.5379
+
+2025-09-09 12:00:11,001 [INFO] [VAL][Epoch 2/30]
+2025-09-09 12:12:30,687 [INFO] Epoch 2: New best val_loss = 1.007120
+2025-09-09 12:12:30,722 [INFO] [VAL] Metrics: Acc: 0.7468, AUC: 0.8274, Precision: nan, Recall: nan, F1: 0.5005, Sens: nan, Spec: nan
+2025-09-09 12:13:00,658 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.19 GiB already allocated; 2.44 MiB free; 30.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 12:13:00,683 [INFO] 
+[VAL] Total loss: 1.0071  (cls:0.6471, hr:0.1165, dig:0.6968)
+[VAL] Metrics: Dig AUC: 0.8274, Macro F1: 0.5005  | class0 AUC: 0.8641 | class1 AUC: 0.8375 | class2 AUC: 0.7806, HR r: 0.9443, Dig r: 0.5591 (p=0.00e+00)
+
+2025-09-09 12:13:00,683 [INFO] [TRAIN][Epoch 3/30]
+2025-09-09 12:31:09,199 [INFO] 
+[TRAIN] Total loss: 0.9512  (cls:0.6164, hr:0.1230, dig:0.6450)
+[TRAIN] Metrics: Dig AUC: 0.8284, Macro F1: 0.5196  | class0 AUC: 0.8733 | class1 AUC: 0.8466 | class2 AUC: 0.7652, HR r: 0.9356, Dig r: 0.5881
+
+2025-09-09 12:31:09,201 [INFO] [VAL][Epoch 3/30]
+2025-09-09 12:33:45,193 [INFO] Epoch 3: New best val_loss = 0.981230
+2025-09-09 12:33:45,212 [INFO] [VAL] Metrics: Acc: 0.7574, AUC: 0.8367, Precision: nan, Recall: nan, F1: 0.5088, Sens: nan, Spec: nan
+2025-09-09 12:34:40,959 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.19 GiB already allocated; 4.44 MiB free; 30.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 12:34:40,971 [INFO] 
+[VAL] Total loss: 0.9812  (cls:0.6344, hr:0.1084, dig:0.6720)
+[VAL] Metrics: Dig AUC: 0.8367, Macro F1: 0.5088  | class0 AUC: 0.8711 | class1 AUC: 0.8431 | class2 AUC: 0.7959, HR r: 0.9487, Dig r: 0.5816 (p=0.00e+00)
+
+2025-09-09 12:34:40,971 [INFO] [TRAIN][Epoch 4/30]
+2025-09-09 12:46:15,139 [INFO] 
+[TRAIN] Total loss: 0.9061  (cls:0.5999, hr:0.1107, dig:0.5902)
+[TRAIN] Metrics: Dig AUC: 0.8471, Macro F1: 0.5256  | class0 AUC: 0.8834 | class1 AUC: 0.8553 | class2 AUC: 0.8027, HR r: 0.9433, Dig r: 0.6221
+
+2025-09-09 12:46:15,140 [INFO] [VAL][Epoch 4/30]
+2025-09-09 12:48:32,985 [INFO] Epoch 4: New best val_loss = 0.911327
+2025-09-09 12:48:33,005 [INFO] [VAL] Metrics: Acc: 0.7814, AUC: 0.8507, Precision: nan, Recall: nan, F1: 0.5269, Sens: nan, Spec: nan
+2025-09-09 12:48:59,723 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.19 GiB already allocated; 448.00 KiB free; 30.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 12:48:59,735 [INFO] 
+[VAL] Total loss: 0.9113  (cls:0.5924, hr:0.0997, dig:0.6179)
+[VAL] Metrics: Dig AUC: 0.8507, Macro F1: 0.5269  | class0 AUC: 0.8880 | class1 AUC: 0.8610 | class2 AUC: 0.8030, HR r: 0.9532, Dig r: 0.6123 (p=0.00e+00)
+
+2025-09-09 12:48:59,735 [INFO] [TRAIN][Epoch 5/30]
+2025-09-09 13:00:02,506 [INFO] 
+[TRAIN] Total loss: 0.9095  (cls:0.5815, hr:0.1015, dig:0.6357)
+[TRAIN] Metrics: Dig AUC: 0.8581, Macro F1: 0.5374  | class0 AUC: 0.8940 | class1 AUC: 0.8673 | class2 AUC: 0.8129, HR r: 0.9482, Dig r: 0.6169
+
+2025-09-09 13:00:02,507 [INFO] [VAL][Epoch 5/30]
+2025-09-09 13:02:13,806 [INFO] Epoch 5: New best val_loss = 0.898431
+2025-09-09 13:02:13,824 [INFO] [VAL] Metrics: Acc: 0.7892, AUC: 0.8586, Precision: nan, Recall: nan, F1: 0.5372, Sens: nan, Spec: nan
+2025-09-09 13:03:06,371 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.19 GiB already allocated; 2.44 MiB free; 30.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 13:03:06,382 [INFO] 
+[VAL] Total loss: 0.8984  (cls:0.5827, hr:0.0939, dig:0.6126)
+[VAL] Metrics: Dig AUC: 0.8586, Macro F1: 0.5372  | class0 AUC: 0.8939 | class1 AUC: 0.8682 | class2 AUC: 0.8135, HR r: 0.9566, Dig r: 0.6163 (p=0.00e+00)
+
+2025-09-09 13:03:06,383 [INFO] [TRAIN][Epoch 6/30]
+2025-09-09 13:11:55,494 [INFO] 
+[TRAIN] Total loss: 0.8532  (cls:0.5714, hr:0.1019, dig:0.5432)
+[TRAIN] Metrics: Dig AUC: 0.8648, Macro F1: 0.5447  | class0 AUC: 0.9017 | class1 AUC: 0.8738 | class2 AUC: 0.8189, HR r: 0.9484, Dig r: 0.6590
+
+2025-09-09 13:11:55,495 [INFO] [VAL][Epoch 6/30]
+2025-09-09 13:14:02,761 [INFO] [VAL] Metrics: Acc: 0.7890, AUC: 0.8579, Precision: nan, Recall: nan, F1: 0.5344, Sens: nan, Spec: nan
+2025-09-09 13:14:02,763 [INFO] 
+[VAL] Total loss: 0.9046  (cls:0.5874, hr:0.0897, dig:0.6165)
+[VAL] Metrics: Dig AUC: 0.8579, Macro F1: 0.5344  | class0 AUC: 0.8961 | class1 AUC: 0.8698 | class2 AUC: 0.8077, HR r: 0.9575, Dig r: 0.6192 (p=0.00e+00)
+
+2025-09-09 13:14:02,763 [INFO] [TRAIN][Epoch 7/30]
+2025-09-09 13:25:03,482 [INFO] 
+[TRAIN] Total loss: 0.8332  (cls:0.5606, hr:0.0978, dig:0.5255)
+[TRAIN] Metrics: Dig AUC: 0.8753, Macro F1: 0.5585  | class0 AUC: 0.9084 | class1 AUC: 0.8798 | class2 AUC: 0.8377, HR r: 0.9501, Dig r: 0.6737
+
+2025-09-09 13:26:08,953 [INFO] [VAL][Epoch 7/30]
+2025-09-09 13:28:21,595 [INFO] [VAL] Metrics: Acc: 0.7811, AUC: 0.8591, Precision: nan, Recall: nan, F1: 0.5412, Sens: nan, Spec: nan
+2025-09-09 13:28:21,597 [INFO] 
+[VAL] Total loss: 0.9285  (cls:0.5982, hr:0.0900, dig:0.6426)
+[VAL] Metrics: Dig AUC: 0.8591, Macro F1: 0.5412  | class0 AUC: 0.8954 | class1 AUC: 0.8699 | class2 AUC: 0.8121, HR r: 0.9576, Dig r: 0.6158 (p=0.00e+00)
+
+2025-09-09 13:28:21,598 [INFO] [TRAIN][Epoch 8/30]
+2025-09-09 13:47:15,698 [INFO] 
+[TRAIN] Total loss: 0.8160  (cls:0.5466, hr:0.0961, dig:0.5197)
+[TRAIN] Metrics: Dig AUC: 0.8803, Macro F1: 0.5704  | class0 AUC: 0.9152 | class1 AUC: 0.8883 | class2 AUC: 0.8373, HR r: 0.9508, Dig r: 0.6816
+
+2025-09-09 13:47:15,701 [INFO] [VAL][Epoch 8/30]
+2025-09-09 13:49:23,084 [INFO] [VAL] Metrics: Acc: 0.7877, AUC: 0.8618, Precision: nan, Recall: nan, F1: 0.5492, Sens: nan, Spec: nan
+2025-09-09 13:49:23,092 [INFO] 
+[VAL] Total loss: 0.9012  (cls:0.5826, hr:0.0889, dig:0.6194)
+[VAL] Metrics: Dig AUC: 0.8618, Macro F1: 0.5492  | class0 AUC: 0.8943 | class1 AUC: 0.8692 | class2 AUC: 0.8217, HR r: 0.9581, Dig r: 0.6228 (p=0.00e+00)
+
+2025-09-09 13:49:23,092 [INFO] [TRAIN][Epoch 9/30]
+2025-09-09 14:17:34,758 [INFO] 
+[TRAIN] Total loss: 0.8025  (cls:0.5377, hr:0.0937, dig:0.5108)
+[TRAIN] Metrics: Dig AUC: 0.8862, Macro F1: 0.5798  | class0 AUC: 0.9186 | class1 AUC: 0.8926 | class2 AUC: 0.8475, HR r: 0.9522, Dig r: 0.6843
+
+2025-09-09 14:17:34,759 [INFO] [VAL][Epoch 9/30]
+2025-09-09 14:33:04,005 [INFO] [VAL] Metrics: Acc: 0.7649, AUC: 0.8612, Precision: nan, Recall: nan, F1: 0.5143, Sens: nan, Spec: nan
+2025-09-09 14:33:04,009 [INFO] 
+[VAL] Total loss: 0.9783  (cls:0.6412, hr:0.0868, dig:0.6568)
+[VAL] Metrics: Dig AUC: 0.8612, Macro F1: 0.5143  | class0 AUC: 0.8947 | class1 AUC: 0.8680 | class2 AUC: 0.8209, HR r: 0.9586, Dig r: 0.6155 (p=0.00e+00)
+
+2025-09-09 14:33:04,009 [INFO] [TRAIN][Epoch 10/30]
+2025-09-09 14:51:07,912 [INFO] 
+[TRAIN] Total loss: 0.7932  (cls:0.5299, hr:0.0951, dig:0.5075)
+[TRAIN] Metrics: Dig AUC: 0.8913, Macro F1: 0.5871  | class0 AUC: 0.9215 | class1 AUC: 0.8961 | class2 AUC: 0.8563, HR r: 0.9514, Dig r: 0.6966
+
+2025-09-09 14:51:08,463 [INFO] [VAL][Epoch 10/30]
+2025-09-09 14:53:40,155 [INFO] Epoch 10: New best val_loss = 0.890953
+2025-09-09 14:53:40,175 [INFO] [VAL] Metrics: Acc: 0.7927, AUC: 0.8600, Precision: nan, Recall: nan, F1: 0.5453, Sens: nan, Spec: nan
+2025-09-09 14:54:38,739 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 48.00 MiB (GPU 0; 31.73 GiB total capacity; 30.19 GiB already allocated; 448.00 KiB free; 30.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 14:54:38,749 [INFO] 
+[VAL] Total loss: 0.8910  (cls:0.5791, hr:0.0860, dig:0.6065)
+[VAL] Metrics: Dig AUC: 0.8600, Macro F1: 0.5453  | class0 AUC: 0.8981 | class1 AUC: 0.8728 | class2 AUC: 0.8091, HR r: 0.9592, Dig r: 0.6248 (p=0.00e+00)
+
+2025-09-09 14:54:38,749 [INFO] [TRAIN][Epoch 11/30]
+2025-09-09 15:08:21,314 [INFO] 
+[TRAIN] Total loss: 0.7649  (cls:0.5175, hr:0.0896, dig:0.4769)
+[TRAIN] Metrics: Dig AUC: 0.8939, Macro F1: 0.5998  | class0 AUC: 0.9276 | class1 AUC: 0.9037 | class2 AUC: 0.8505, HR r: 0.9537, Dig r: 0.7074
+
+2025-09-09 15:08:21,315 [INFO] [VAL][Epoch 11/30]
+2025-09-09 15:10:38,103 [INFO] [VAL] Metrics: Acc: 0.7838, AUC: 0.8579, Precision: nan, Recall: nan, F1: 0.5564, Sens: nan, Spec: nan
+2025-09-09 15:10:38,105 [INFO] 
+[VAL] Total loss: 0.9219  (cls:0.5997, hr:0.0858, dig:0.6273)
+[VAL] Metrics: Dig AUC: 0.8579, Macro F1: 0.5564  | class0 AUC: 0.8918 | class1 AUC: 0.8652 | class2 AUC: 0.8167, HR r: 0.9594, Dig r: 0.6259 (p=0.00e+00)
+
+2025-09-09 15:10:38,105 [INFO] [TRAIN][Epoch 12/30]
+2025-09-09 15:22:38,965 [INFO] 
+[TRAIN] Total loss: 0.7831  (cls:0.5074, hr:0.0905, dig:0.5333)
+[TRAIN] Metrics: Dig AUC: 0.9013, Macro F1: 0.6254  | class0 AUC: 0.9320 | class1 AUC: 0.9082 | class2 AUC: 0.8638, HR r: 0.9540, Dig r: 0.6969
+
+2025-09-09 15:22:38,967 [INFO] [VAL][Epoch 12/30]
+2025-09-09 15:25:20,850 [INFO] [VAL] Metrics: Acc: 0.7928, AUC: 0.8616, Precision: nan, Recall: nan, F1: 0.5771, Sens: nan, Spec: nan
+2025-09-09 15:25:20,851 [INFO] 
+[VAL] Total loss: 0.9043  (cls:0.5837, hr:0.0860, dig:0.6238)
+[VAL] Metrics: Dig AUC: 0.8616, Macro F1: 0.5771  | class0 AUC: 0.8987 | class1 AUC: 0.8729 | class2 AUC: 0.8132, HR r: 0.9599, Dig r: 0.6305 (p=0.00e+00)
+
+2025-09-09 15:25:20,852 [INFO] [TRAIN][Epoch 13/30]
+2025-09-09 15:37:40,027 [INFO] 
+[TRAIN] Total loss: 0.7471  (cls:0.5024, hr:0.0859, dig:0.4724)
+[TRAIN] Metrics: Dig AUC: 0.9032, Macro F1: 0.6344  | class0 AUC: 0.9350 | class1 AUC: 0.9115 | class2 AUC: 0.8631, HR r: 0.9560, Dig r: 0.7255
+
+2025-09-09 15:37:40,028 [INFO] [VAL][Epoch 13/30]
+2025-09-09 15:40:12,111 [INFO] Epoch 13: New best val_loss = 0.881652
+2025-09-09 15:40:12,131 [INFO] [VAL] Metrics: Acc: 0.7977, AUC: 0.8667, Precision: nan, Recall: nan, F1: 0.5704, Sens: nan, Spec: nan
+2025-09-09 15:40:47,082 [INFO] Saved best-model checkpoints:
+- state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_state_dict.pt
+- full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_full_model.pt
+- input tensor: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_best_example_input.pt
+- graph: Error in graph visualization: CUDA out of memory. Tried to allocate 384.00 MiB (GPU 0; 31.73 GiB total capacity; 28.59 GiB already allocated; 348.44 MiB free; 30.23 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+2025-09-09 15:40:47,104 [INFO] 
+[VAL] Total loss: 0.8817  (cls:0.5729, hr:0.0838, dig:0.6007)
+[VAL] Metrics: Dig AUC: 0.8667, Macro F1: 0.5704  | class0 AUC: 0.9016 | class1 AUC: 0.8762 | class2 AUC: 0.8223, HR r: 0.9607, Dig r: 0.6361 (p=0.00e+00)
+
+2025-09-09 15:40:47,105 [INFO] [TRAIN][Epoch 14/30]
+2025-09-09 15:51:20,172 [INFO] 
+[TRAIN] Total loss: 0.7331  (cls:0.4941, hr:0.0866, dig:0.4608)
+[TRAIN] Metrics: Dig AUC: 0.9082, Macro F1: 0.6393  | class0 AUC: 0.9377 | class1 AUC: 0.9153 | class2 AUC: 0.8717, HR r: 0.9557, Dig r: 0.7295
+
+2025-09-09 15:51:20,174 [INFO] [VAL][Epoch 14/30]
+2025-09-09 15:53:39,831 [INFO] [VAL] Metrics: Acc: 0.7938, AUC: 0.8607, Precision: nan, Recall: nan, F1: 0.5746, Sens: nan, Spec: nan
+2025-09-09 15:53:39,834 [INFO] 
+[VAL] Total loss: 0.9013  (cls:0.5924, hr:0.0835, dig:0.6012)
+[VAL] Metrics: Dig AUC: 0.8607, Macro F1: 0.5746  | class0 AUC: 0.8969 | class1 AUC: 0.8726 | class2 AUC: 0.8126, HR r: 0.9604, Dig r: 0.6313 (p=0.00e+00)
+
+2025-09-09 15:53:39,834 [INFO] [TRAIN][Epoch 15/30]
+2025-09-09 16:04:27,819 [INFO] 
+[TRAIN] Total loss: 0.7200  (cls:0.4878, hr:0.0862, dig:0.4472)
+[TRAIN] Metrics: Dig AUC: 0.9138, Macro F1: 0.6556  | class0 AUC: 0.9400 | class1 AUC: 0.9175 | class2 AUC: 0.8839, HR r: 0.9562, Dig r: 0.7387
+
+2025-09-09 16:04:27,822 [INFO] [VAL][Epoch 15/30]
+2025-09-09 16:07:11,507 [INFO] [VAL] Metrics: Acc: 0.7978, AUC: 0.8623, Precision: nan, Recall: nan, F1: 0.5551, Sens: nan, Spec: nan
+2025-09-09 16:07:11,630 [INFO] 
+[VAL] Total loss: 0.8974  (cls:0.5868, hr:0.0894, dig:0.6033)
+[VAL] Metrics: Dig AUC: 0.8623, Macro F1: 0.5551  | class0 AUC: 0.8998 | class1 AUC: 0.8745 | class2 AUC: 0.8125, HR r: 0.9596, Dig r: 0.6279 (p=0.00e+00)
+
+2025-09-09 16:07:11,631 [INFO] [TRAIN][Epoch 16/30]
+2025-09-09 16:23:57,558 [INFO] 
+[TRAIN] Total loss: 0.6845  (cls:0.4766, hr:0.0846, dig:0.3988)
+[TRAIN] Metrics: Dig AUC: 0.9156, Macro F1: 0.6688  | class0 AUC: 0.9459 | class1 AUC: 0.9236 | class2 AUC: 0.8772, HR r: 0.9571, Dig r: 0.7649
+
+2025-09-09 16:23:57,560 [INFO] [VAL][Epoch 16/30]
+2025-09-09 16:26:23,984 [INFO] [VAL] Metrics: Acc: 0.7861, AUC: 0.8612, Precision: nan, Recall: nan, F1: 0.5637, Sens: nan, Spec: nan
+2025-09-09 16:26:23,986 [INFO] 
+[VAL] Total loss: 0.9272  (cls:0.6129, hr:0.0822, dig:0.6120)
+[VAL] Metrics: Dig AUC: 0.8612, Macro F1: 0.5637  | class0 AUC: 0.8952 | class1 AUC: 0.8697 | class2 AUC: 0.8186, HR r: 0.9608, Dig r: 0.6264 (p=0.00e+00)
+
+2025-09-09 16:26:23,987 [INFO] [TRAIN][Epoch 17/30]
+2025-09-09 16:43:18,329 [INFO] 
+[TRAIN] Total loss: 0.6705  (cls:0.4672, hr:0.0890, dig:0.3888)
+[TRAIN] Metrics: Dig AUC: 0.9227, Macro F1: 0.6850  | class0 AUC: 0.9484 | class1 AUC: 0.9272 | class2 AUC: 0.8925, HR r: 0.9546, Dig r: 0.7697
+
+2025-09-09 16:43:18,330 [INFO] [VAL][Epoch 17/30]
+2025-09-09 16:45:50,462 [INFO] [VAL] Metrics: Acc: 0.7896, AUC: 0.8527, Precision: nan, Recall: nan, F1: 0.5567, Sens: nan, Spec: nan
+2025-09-09 16:45:50,463 [INFO] 
+[VAL] Total loss: 0.9061  (cls:0.5930, hr:0.0844, dig:0.6095)
+[VAL] Metrics: Dig AUC: 0.8527, Macro F1: 0.5567  | class0 AUC: 0.8941 | class1 AUC: 0.8690 | class2 AUC: 0.7950, HR r: 0.9602, Dig r: 0.6203 (p=0.00e+00)
+
+2025-09-09 16:45:50,464 [INFO] [TRAIN][Epoch 18/30]
+2025-09-09 16:58:15,320 [INFO] 
+[TRAIN] Total loss: 0.7131  (cls:0.4606, hr:0.0805, dig:0.4890)
+[TRAIN] Metrics: Dig AUC: 0.9235, Macro F1: 0.6936  | class0 AUC: 0.9514 | class1 AUC: 0.9304 | class2 AUC: 0.8886, HR r: 0.9586, Dig r: 0.7370
+
+2025-09-09 16:58:15,321 [INFO] [VAL][Epoch 18/30]
+2025-09-09 17:03:22,668 [INFO] Early stopping triggered at epoch 18 (no improvement for 5.0 epochs)
+2025-09-09 17:03:22,724 [INFO] [VAL] Metrics: Acc: 0.7944, AUC: 0.8601, Precision: nan, Recall: nan, F1: 0.5684, Sens: nan, Spec: nan
+2025-09-09 17:03:22,725 [INFO] 
+[VAL] Total loss: 0.9090  (cls:0.5978, hr:0.0832, dig:0.6059)
+[VAL] Metrics: Dig AUC: 0.8601, Macro F1: 0.5684  | class0 AUC: 0.8995 | class1 AUC: 0.8737 | class2 AUC: 0.8070, HR r: 0.9603, Dig r: 0.6294 (p=0.00e+00)
+
+2025-09-09 17:03:22,805 [INFO] Best model state loaded from training.
+2025-09-09 17:03:22,826 [INFO] Training history saved to: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/history.json
+2025-09-09 17:03:22,826 [INFO] [BEST VAL] Loss: 0.88 | AUC digoxin: 0.87 |  | class0 AUC: 0.90 | class1 AUC: 0.88 | class2 AUC: 0.82 | Macro F1: 0.58 | HR r: 0.96 | Dig r: 0.64 | Age r: -0.04 | Sex AUC: 0.54
+2025-09-09 17:03:23,058 [INFO] Saved final model at end of training:
+2025-09-09 17:03:23,058 [INFO] - state_dict: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_final_state_dict_epoch30.pt
+2025-09-09 17:03:23,058 [INFO] - full_model: /PHShome/ea382/ecgGPT/runs/20250909/093652_651461_ECG12DrugNet/checkpoints/model_final_full_model_epoch30.pt

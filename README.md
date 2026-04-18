@@ -9,8 +9,26 @@ This repository is work in progress and when completed will provide a reproducib
 -----------------------------------------------------------------------------------------------------------------------
 ### Citation
 
-Citation information (journal link) -- coming soon
+Citation information -- coming soon
 
+-----------------------------------------------------------------------------------------------------------------------
+
+## Setting up your local environment
+
+Clone the repo to your home directory:
+```
+git clone git@github.com:elenikaxiras/ECG2DIG.git
+```
+Then, once inside the project folder create the environment needed
+```
+cd ECG2DIG
+conda env create -f environment.yml
+conda activate ecg2dig-env
+```
+And run the following command from the root of the repo to install the ecg2dig package into that env 
+```
+python -m pip install -e .
+```
 -----------------------------------------------------------------------------------------------------------------------
 ### Model Architecture
 
@@ -19,11 +37,18 @@ Citation information (journal link) -- coming soon
 -----------------------------------------------------------------------------------------------------------------------
 ### Code structure
 
-├── data<BR>
-├── inference.ipynb<BR>
-├── models<BR>
-│   └── ECG2DIG.py<BR>
-├── LICENSE<BR>
-├── README.md<BR>
-└── src<BR>
+1. Create the Conda env first using environment.yml, activate it, then run pip install -e . from the repo root. 
+conda env create -f environment.yml
+conda activate ecg2dig-env
+
+ECG2DIG/
+├── pyproject.toml
+├── environment.yml
+├── README.md
+|-- data<BR>
+├── src/
+│   └── ecg2dig/
+└── notebooks/
+    └── inference.ipynb
+
 
