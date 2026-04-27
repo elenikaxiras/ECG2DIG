@@ -3,6 +3,7 @@ import torch
 import pandas as pd
 import torch.nn as nn
 import numpy as np
+from ecg2dig.utils.datasets import is_valid_ecg, is_bound_ecg, safe_pearsonr
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from sklearn.metrics import roc_auc_score
