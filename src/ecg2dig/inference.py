@@ -22,9 +22,11 @@ def _run_forward_pass(model, loader, device, label_col):
     """Run model over loader, return list of per-sample result dicts."""
     model.eval()
     results = []
+    print('Inside forward pass')
     with torch.no_grad():
         for batch in tqdm(loader, desc="Inference"):
             if batch is None:
+                print('batch is None')
                 continue
             (xb,         # ecg tensor [B, T, C] or [B, C, T]
              dig_tensor, # digoxin numeric value
@@ -169,6 +171,7 @@ def inference(
 
     model.eval()
     results = []
+    print('Inference started!')
     
     print(f'--------\nINFERENCE\n-----------\n')
     # choose which column name to write the integer class label into

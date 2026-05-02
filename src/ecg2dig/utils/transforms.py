@@ -151,4 +151,22 @@ class StandardizeTransform:
                 sample[feature] = sample[feature] * std + mean
         return sample
     
+class StandardizeByChannelECGTransform:
+    """ Standardizes an ECG sample on a per-channel basis by computing
+    the mean and standard deviation for each channel (over the T time points)
+    Args:
+        - ECG tensor of shape [T, C] (e.g. [5000, 12]).
+    Returns:
+        - ECG PyTorch Tensor
+    Caveat: That forces every recording to have mean 0 and variance 1 per lead, so say a 0.7 mV and a 3.0 mV QRS both become ~1 SD tall in their own normalized sample. Absolute differences across recordings are lost. We don’t want that if we care about voltage as a phenotype. In this case we use StandardizeByChannelECGandWholeTrainTransform
+    """
+    def __init__(self, eps=1e-6):
+        self.eps = eps
+
+    def __call__(self, ecg: torch.Tensor,
+                ) -> torch.Tensor:
+        channel_mean = torch.mean(ecg, dim=0, keepdim=True)
+        channel_std = torch.std(ecg, dim=0, keepdim=True)
+        return (ecg - channel_mean) / (channel_std + self.eps)
+    
 
