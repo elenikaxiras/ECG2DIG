@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-#from scipy.special import softmax
 from sklearn.metrics import (
     roc_auc_score, roc_curve,
     average_precision_score, precision_recall_curve,
@@ -35,6 +34,134 @@ def prepare_probs_targets_df(df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray, 
     y = y[mask].astype(int)
     probs = _softmax_np(logits)
     return probs, y, logits
+
+# -------
+# One vs one
+# 1 vs 2 means 2 is the positive class
+# -------
+
+def _softmax(z):
+    z = z - z.max(axis=1, keepdims=True)
+    ez = np.exp(z)
+    return ez / ez.sum(axis=1, keepdims=True)
+
+def _to_logits_array(col, n_classes=3):
+    def to_arr(v):
+        if isinstance(v, str): v = ast.literal_eval(v)
+        return np.asarray(v, float).reshape(-1)
+    A = np.stack([to_arr(v) for v in col], axis=0)
+    if A.shape[1] != n_classes:
+        raise ValueError(f"expected {n_classes} logits, got {A.shape[1]}")
+    return A
+
+def _auc_safe(yb, s):
+    return float(roc_auc_score(yb, s)) if len(np.unique(yb)) > 1 else np.nan
+
+def _ap_safe(yb, s):
+    return float(average_precision_score(yb, s)) if len(np.unique(yb)) > 1 else np.nan
+
+def _ci(vals, alpha=0.05):
+    v = np.asarray(vals, float)
+    if v.size == 0 or np.all(np.isnan(v)): return (np.nan, np.nan)
+    lo, hi = np.nanpercentile(v, [100*alpha/2, 100*(1-alpha/2)])
+    return (float(lo), float(hi))
+
+def _iid_boot_indices(n, B, rng):
+    return [rng.integers(0, n, n) for _ in range(B)]
+
+def _cluster_boot_indices(ids, B, rng):
+    ids = np.asarray(ids)
+    uniq = np.array(sorted(pd.unique(ids)))
+    pos = {}
+    for i, pid in enumerate(ids):
+        pos.setdefault(pid, []).append(i)
+    sets = []
+    for _ in range(B):
+        sampled = rng.choice(uniq, size=len(uniq), replace=True)
+        idx = []
+        for pid in sampled:
+            idx.extend(pos.get(pid, []))
+        if len(idx) == 0:
+            idx = rng.integers(0, len(ids), len(ids)).tolist()
+        sets.append(np.array(idx, int))
+    return sets
+
+# ---------- main: OvO with CIs ----------
+def ovo_metrics_with_ci(
+    df: pd.DataFrame,
+    pairs=((0,1),(0,2),(1,2)),
+    logits_col="cls_logits",
+    label_col="cls_true",
+    calibrate_fn=None,           # optional: logits_np -> calibrated probs_np
+    n_boot: int = 1000,
+    seed: int = 42,
+    patient_id_col: str | None = None,   # cluster bootstrap if provided
+) -> pd.DataFrame:
+    """
+    Compute one-vs-one (OvO) ROC-AUC and AP (PR-AUC) with 95% bootstrap CIs.
+    For pair (a,b) the positive class is b.
+
+    Returns: DataFrame with columns
+      pair, n_a, n_b, prevalence_b, AUC, AUC_lo, AUC_hi, AP, AP_lo, AP_hi
+    """
+    rng = np.random.default_rng(seed)
+
+    logits = _to_logits_array(df[logits_col], n_classes=3)
+    y_all  = pd.to_numeric(df[label_col], errors="coerce").to_numpy()
+    m      = ~np.isnan(y_all)
+    logits, y_all = logits[m], y_all[m].astype(int)
+    probs_all = calibrate_fn(logits) if calibrate_fn is not None else _softmax(logits)
+
+    # For clustering, align patient IDs to mask if provided
+    ids_masked = df.loc[m, patient_id_col].to_numpy() if (patient_id_col and patient_id_col in df.columns) else None
+
+    rows = []
+    for a, b in pairs:
+        mask = (y_all == a) | (y_all == b)
+        if not mask.any():
+            rows.append({"pair": f"{a}vs{b}", "N_a": 0, "N_b": 0,
+                         "prevalence_b": np.nan, "AUC": np.nan, "AUC_CI_lo": np.nan, "AUC_CI_hi": np.nan,
+                         "AP": np.nan, "AP_CI_lo": np.nan, "AP_CI_hi": np.nan})
+            continue
+
+        y = y_all[mask]
+        P = probs_all[mask]
+        yb = (y == b).astype(int)      # class b is positive
+        s  = P[:, b]                   # score = P(class b)
+
+        n_a = int((y == a).sum())
+        n_b = int((y == b).sum())
+        prev_b = n_b / (n_a + n_b)
+
+        auc = _auc_safe(yb, s)
+        ap  = _ap_safe(yb, s)
+
+        # Bootstrap (clustered if ids available)
+        auc_bs, ap_bs = [], []
+        if n_boot > 0:
+            if ids_masked is not None:
+                ids_pair = ids_masked[mask]
+                boot_sets = _cluster_boot_indices(ids_pair, n_boot, rng)
+            else:
+                boot_sets = _iid_boot_indices(len(y), n_boot, rng)
+
+            for idx in boot_sets:
+                yb_b = yb[idx]; s_b = s[idx]
+                auc_bs.append(_auc_safe(yb_b, s_b))
+                ap_bs.append(_ap_safe(yb_b, s_b))
+
+        auc_lo, auc_hi = _ci(auc_bs) if n_boot > 0 else (np.nan, np.nan)
+        ap_lo,  ap_hi  = _ci(ap_bs)  if n_boot > 0 else (np.nan, np.nan)
+
+        rows.append({
+            "pair": f"{a}vs{b}",
+            "N_a": n_a, "N_b": n_b, "prevalence_b": prev_b,
+            "AUC": auc, "AUC_CI_lo": auc_lo, "AUC_CI_hi": auc_hi,
+            "AP":  ap,  "AP_CI_lo":  ap_lo,  "AP_CI_hi":  ap_hi,
+        })
+
+    return pd.DataFrame(rows).sort_values("pair").reset_index(drop=True)
+
 
 # -----------------------------
 # Metrics (multiclass)
