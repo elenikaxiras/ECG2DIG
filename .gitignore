@@ -1,5 +1,6 @@
 # Private notebooks
 inference_zero_old.ipynb
+inference_zero.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
