@@ -1,3 +1,6 @@
+# Private notebooks
+inference_zero_old.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
